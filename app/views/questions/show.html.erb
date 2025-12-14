@@ -4,7 +4,7 @@
 
 <% if @question.user == current_user %>
   <%= link_to "編集", edit_question_path(@question) %> |
-  <%= link_to "削除", question_path(@question), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+  <%= link_to "削除", question_path(@question), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
 <% end %>
 
 <h2>回答一覧</h2>
@@ -17,7 +17,7 @@
         <%= a.content %> - <%= a.user.handle_name %>
         <% if a.user == current_user %>
           | <%= link_to "編集", edit_question_answer_path(@question, a) %>
-          | <%= link_to "削除", question_answer_path(@question, a), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+          | <%= link_to "削除", question_answer_path(@question, a), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
         <% end %>
       </li>
     <% end %>
