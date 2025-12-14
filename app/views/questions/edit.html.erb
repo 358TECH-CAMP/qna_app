@@ -1,0 +1,10 @@
+<div class="container">
+    <h1>質問編集</h1>
+    <%= form_with model: @question do |f| %>
+        <%= f.text_field :title, placeholder: "タイトル" %>
+        <%= f.text_area :content, placeholder: "質問内容" %>
+        <%= f.select :public, [["公開", true], ["非公開", false]] %>
+        <%= f.submit "更新" %>
+    <% end %>
+    <%= link_to "質問一覧に戻る", questions_path %>
+</div>

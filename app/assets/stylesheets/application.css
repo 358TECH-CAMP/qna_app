@@ -1,0 +1,59 @@
+/* 共通スタイル: 中央寄せと緑ボタンの定義 */
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f5f7;
+    margin: 0;
+    padding: 0;
+}
+
+/* フォームや一覧コンテンツを中央に寄せるためのコンテナ */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #0ea35a; /* 緑色 */
+}
+
+/* 入力欄、セレクトボックス、テキストエリアのスタイル */
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* paddingを含めた幅計算 */
+}
+
+/* ボタン（form_with の submit_tag や button_to）のスタイル - 緑ボタン統一 */
+button, input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background: #0ea35a; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* リンクのスタイル */
+a {
+    color: #0ea35a;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+/* 回答の背景を薄くする */
+.answer-box {
+    margin-top: 15px;
+    padding: 10px;
+    background: #f7f7f7;
+    border-radius: 5px;
+}

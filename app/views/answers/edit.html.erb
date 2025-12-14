@@ -1,0 +1,8 @@
+<div class="container">
+    <h1>回答編集</h1>
+    <%= form_with model: [@question, @answer] do |f| %>
+        <%= f.text_area :content, placeholder: "回答内容" %>
+        <%= f.submit "更新" %>
+    <% end %>
+    <%= link_to "質問一覧に戻る", questions_path %>
+</div>

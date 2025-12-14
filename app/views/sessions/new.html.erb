@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>ログイン / 新規登録</h1>
+  <%= csrf_meta_tags %>
+  
+  <%= form_with url: login_path, method: :post do %>
+    <%= text_field_tag :handle_name, nil, placeholder: "ハンドルネーム", required: true %>
+    
+    <%= select_tag :role, 
+                   options_for_select([["受講生", "Student"], ["講師", "Teacher"]]), 
+                   prompt: "役割を選択", 
+                   required: true %>
+    
+    <%= submit_tag "ログイン" %>
+  <% end %>
+</div>
+
