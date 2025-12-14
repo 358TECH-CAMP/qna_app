@@ -1,0 +1,15 @@
+<h1>新規登録</h1>
+
+<%= form_with model: @user, url: signup_path, local: true do |f| %>
+  <div>
+    <%= f.text_field :handle_name, placeholder: "ハンドルネーム", required: true %>
+  </div>
+
+  <div>
+    <%= f.select :role, options_for_select([["受講生", "Student"], ["講師", "Teacher"]]), prompt: "役割を選択", required: true %>
+  </div>
+
+  <div>
+    <%= f.submit "新規登録", class: "button" %>
+  </div>
+<% end %>

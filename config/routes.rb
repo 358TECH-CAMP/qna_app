@@ -1,15 +1,18 @@
 Rails.application.routes.draw do
-    root "sessions#new"
-    
-    get "/login", to: "sessions#new"
-    post "/login", to: "sessions#create"
-    delete "/logout", to: "sessions#destroy"
-    
-    resources :questions do
-        # 回答のCRUD (質問にネスト)
-        resources :answers, only: [:create, :edit, :update, :destroy]
-    end
-    
-    # 必要に応じて health check を追加
-    get "up" => "rails/health#show", as: :rails_health_check
+  # トップページ
+  root "home#index"
+
+  # ユーザー登録
+  get "/signup", to: "users#new"
+  post "/signup", to: "users#create"
+
+  # ログイン
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
+  # 質問と回答
+  resources :questions do
+    resources :answers, only: [:create, :edit, :update, :destroy]
+  end
 end
