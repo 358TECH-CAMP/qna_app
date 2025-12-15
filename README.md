@@ -12,8 +12,7 @@ Ruby on Railsで開発中の質問・回答アプリです。ユーザーは**�
 
 ## URL
 
-- 本番環境URL：［デプロイURLをここに記載］\
-  ※未デプロイの場合は、デプロイ完了次第追記予定
+- 本番環境URL：https://qna-app-jdo5.onrender.com
 
 ---
 
