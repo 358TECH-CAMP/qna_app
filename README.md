@@ -50,8 +50,6 @@ Ruby on Railsで開発中の質問・回答アプリです。ユーザーは**�
 
 ## 実装した機能についての画像やGIFおよびその説明
 
-※画像はGyazo、GIFはGyazoGIFで撮影予定
-
 * **ユーザー登録・ログイン機能**
 https://gyazo.com/cb5b33b6c62a34b8e2e33d734f7aa82a
 https://gyazo.com/cfc8a616fcd450ccd6ff6f62f2411e84
