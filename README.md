@@ -1,59 +1,255 @@
-# README
+## アプリケーション名
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Q&Aアプリ（オリジナル作成中）
 
-Things you may want to cover:
+---
 
-* Ruby version
+## アプリケーション概要
 
-* System dependencies
+Ruby on Railsで開発中の質問・回答アプリです。ユーザーは**ハンドルネームのみで新規登録・ログイン**でき、質問の投稿や質問に対する回答の投稿が可能です。就職活動での**ポートフォリオ提出を目的**として、開発途中の段階でもデプロイしています。
 
-* Configuration
+---
 
-* Database creation
+## URL
 
-* Database initialization
+- 本番環境URL：https://qna-app-jdo5.onrender.com
 
-* How to run the test suite
+---
 
-* Services (job queues, cache servers, search engines, etc.)
+## テスト用アカウント
 
-* Deployment instructions
+- ハンドルネーム：［テスト用ハンドルネーム］
+- パスワード：［テスト用パスワード］
 
-* ...
+### Basic認証（設定している場合）
 
-# Q&Aアプリ（オリジナル作成中）
+- ID：［IDをここに記載］
+- PASS：［PASSをここに記載］
 
-## アプリ概要
-Ruby on Railsで開発中の質問・回答アプリです。  
-ユーザーはハンドルネームでログインし、質問の投稿や回答の投稿が可能です。  
-就職活動でのポートフォリオ用として途中段階でもデプロイしています。
+---
 
-## 現在の機能
-- ハンドルネームによるログイン・新規登録
-- 質問投稿
-- 回答投稿
-- 質問一覧・回答一覧の表示
+## 利用方法
 
-※一部機能は開発中です。
+1. トップページから新規登録またはログイン（ハンドルネーム）
+2. 質問一覧ページで質問を閲覧
+3. 新規質問を投稿
+4. 各質問詳細ページから回答を投稿
+5. 質問および回答を一覧で確認
 
-## 使用技術
-- Ruby on Rails
+---
 
-## デプロイURL
-[デプロイURLをここに記載]
+## アプリケーションを作成した背景
 
-### ベーシック認証
-ID: [IDをここに記載]  
-PASS: [PASSをここに記載]
+テックキャンプでは年末年始に休校期間が設けられており、2025年12月31日（水）〜2026年1月3日（土） の期間は、講師・メンターへの質問やレビュー対応が停止します。 その間も学習を継続したい受講生にとって、学習中に生じた疑問を気軽に質問・共有できる場あったらいいなと感じたことが、本アプリ開発のきっかけです。 特に、実名登録や複雑な認証があると質問への心理的ハードルが高くなるため、ハンドルネームのみで参加できる仕組みを採用しました。 これにより、初心者でも安心して質問できる環境を目指しています。 本アプリは、休校期間中であっても学習者同士、または講師と生徒が円滑にコミュニケーションを取り、学習の停滞を防ぐことを目的としたQ&Aアプリです。
 
-## 今後追加予定機能
-- 回答の編集・削除
+---
+
+## 実装した機能についての画像やGIFおよびその説明
+
+- **ユーザー登録・ログイン機能**\
+  [https://gyazo.com/cb5b33b6c62a34b8e2e33d734f7aa82a](https://gyazo.com/cb5b33b6c62a34b8e2e33d734f7aa82a)\
+  [https://gyazo.com/cfc8a616fcd450ccd6ff6f62f2411e84](https://gyazo.com/cfc8a616fcd450ccd6ff6f62f2411e84) \
+  ハンドルネームを用いたシンプルな認証方式を採用。
+
+- **質問投稿機能**\
+  [https://gyazo.com/70d16ba4f9f1831fe5fb9cb03bc9a328](https://gyazo.com/70d16ba4f9f1831fe5fb9cb03bc9a328) \
+  ログインユーザーが自由に質問を投稿可能。
+
+- **回答投稿機能**\
+  [https://gyazo.com/8d6d2fa42ca2fa784622d98992a9eeba](https://gyazo.com/8d6d2fa42ca2fa784622d98992a9eeba)\
+  各質問に対して複数の回答を投稿可能。
+
+- **質問・回答一覧表示**\
+  [https://gyazo.com/f57e6999aa72134bc7aa86a38192ca17](https://gyazo.com/f57e6999aa72134bc7aa86a38192ca17) \
+  投稿された質問および回答を一覧で確認可能。
+
+---
+
+## 実装予定の機能
+
+- 回答の編集・削除機能
 - 質問の検索・フィルター機能
 - ユーザー権限管理（講師・生徒など）
 - UIの改善・レスポンシブ対応
 
+---
+
+## データベース設計
+
+### ER図（概要）
+
+```
+User 1 ────< Question 1 ────< Answer
+```
+
+### テーブル設計
+
+#### users テーブル
+
+| カラム名             | 型        | 制約                  | 説明                       |
+| ---------------- | -------- | ------------------- | ------------------------ |
+| id               | integer  | PK                  | ユーザーID                   |
+| handle\_name     | string   | null: false, unique | ハンドルネーム                  |
+| password\_digest | string   | null: false         | パスワード（bcrypt）            |
+| role             | string   | default: "student"  | 権限（student / teacher など） |
+| created\_at      | datetime |                     | 作成日時                     |
+| updated\_at      | datetime |                     | 更新日時                     |
+
+---
+
+#### questions テーブル
+
+| カラム名        | 型        | 制約          | 説明       |
+| ----------- | -------- | ----------- | -------- |
+| id          | integer  | PK          | 質問ID     |
+| title       | string   | null: false | 質問タイトル   |
+| body        | text     | null: false | 質問内容     |
+| user\_id    | integer  | FK          | 投稿ユーザーID |
+| created\_at | datetime |             | 作成日時     |
+| updated\_at | datetime |             | 更新日時     |
+
+---
+
+#### answers テーブル（messages）
+
+| カラム名         | 型        | 制約          | 説明        |
+| ------------ | -------- | ----------- | --------- |
+| id           | integer  | PK          | 回答ID      |
+| body         | text     | null: false | 回答内容      |
+| user\_id     | integer  | FK          | 回答者ユーザーID |
+| question\_id | integer  | FK          | 紐づく質問ID   |
+| created\_at  | datetime |             | 作成日時      |
+| updated\_at  | datetime |             | 更新日時      |
+
+---
+
+### アソシエーション
+
+```ruby
+# user.rb
+has_many :questions
+has_many :answers
+
+# question.rb
+belongs_to :user
+has_many :answers, dependent: :destroy
+
+# answer.rb
+belongs_to :user
+belongs_to :question
+```
+
+---
+
+
+
+## 画面遷移図
+
+### 画面遷移図（概要）
+
+```
+トップページ
+   │
+   ├── 新規登録 ──▶ ユーザー登録完了
+   │                     │
+   │                     ▼
+   │                質問一覧
+   │
+   └── ログイン ─────▶ 質問一覧
+                          │
+                          ├── 質問詳細
+                          │      │
+                          │      └── 回答投稿
+                          │
+                          └── 質問投稿
+```
+
+### 各画面の説明
+
+- **トップページ**\
+  アプリの入口。新規登録またはログインが可能。
+
+- **新規登録画面**\
+  ハンドルネームとパスワードのみでユーザー登録。
+
+- **ログイン画面**\
+  登録済みユーザーがログイン。
+
+- **質問一覧画面**\
+  投稿された質問を一覧表示。質問投稿画面・質問詳細画面へ遷移可能。
+
+- **質問投稿画面**\
+  ログインユーザーが新しい質問を投稿。
+
+- **質問詳細画面**\
+  質問内容と回答一覧を表示。回答投稿が可能。
+
+- **回答投稿**\
+  質問詳細画面から回答を投稿。
+
+---
+
+## 開発環境
+
+- Ruby
+- Ruby on Rails
+- MySQL（ローカル環境）
+- GitHub
+- Render（予定）
+
+---
+
+## ローカルでの動作方法
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/358TECH-CAMP/qna_app.git
+
+# ディレクトリ移動
+cd qna_app
+
+# Gemインストール
+bundle install
+
+# データベース作成
+rails db:create
+
+# マイグレーション実行
+rails db:migrate
+
+# サーバー起動
+rails server
+```
+
+ブラウザで `http://localhost:3000` にアクセス。
+
+---
+
+## 工夫したポイント
+
+- ハンドルネームのみでログインできる**シンプルな設計**
+- MVC構造を意識したRailsらしい実装
+- ポートフォリオ提出を想定し、途中段階でも**デプロイ前提で開発**
+- 機能ごとに段階的に実装し、拡張しやすい設計
+
+---
+
+## 改善点
+
+- 検索機能の追加による利便性向上
+- 権限管理導入による利用シーンの拡張
+- UI/UXの改善（スマートフォン対応）
+- テストコード（RSpec）の導入
+
+---
+
+## 制作時間
+
+約［○○時間／○週間］
+
+---
+
 ## GitHubリポジトリ
-[https://github.com/358TECH-CAMP/qna_app](https://github.com/358TECH-CAMP/qna_app)
+
+[https://github.com/358TECH-CAMP/qna\_app](https://github.com/358TECH-CAMP/qna_app)
 
