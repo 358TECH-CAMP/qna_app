@@ -47,20 +47,20 @@ Ruby on Railsで開発中の質問・回答アプリです。ユーザーは**�
 ## 実装した機能についての画像やGIFおよびその説明
 
 - **ユーザー登録・ログイン機能**\
-  [https://gyazo.com/cb5b33b6c62a34b8e2e33d734f7aa82a](https://gyazo.com/cb5b33b6c62a34b8e2e33d734f7aa82a)\
-  [https://gyazo.com/cfc8a616fcd450ccd6ff6f62f2411e84](https://gyazo.com/cfc8a616fcd450ccd6ff6f62f2411e84) \
+  https://gyazo.com/3c9078bbda8308fc4c6e6399a22994eb\
+  https://gyazo.com/8d055e23ff3742b480bab98a45d04660\
   ハンドルネームを用いたシンプルな認証方式を採用。
 
 - **質問投稿機能**\
-  [https://gyazo.com/70d16ba4f9f1831fe5fb9cb03bc9a328](https://gyazo.com/70d16ba4f9f1831fe5fb9cb03bc9a328) \
+ https://gyazo.com/6275874ac61e5af8b8e2b288ff778693\
   ログインユーザーが自由に質問を投稿可能。
 
 - **回答投稿機能**\
-  [https://gyazo.com/8d6d2fa42ca2fa784622d98992a9eeba](https://gyazo.com/8d6d2fa42ca2fa784622d98992a9eeba)\
+  https://gyazo.com/df1a021947b0cc112a65e3bd95f1315e\
   各質問に対して複数の回答を投稿可能。
 
 - **質問・回答一覧表示**\
-  [https://gyazo.com/f57e6999aa72134bc7aa86a38192ca17](https://gyazo.com/f57e6999aa72134bc7aa86a38192ca17) \
+  https://gyazo.com/1603053932438bd28b552cace2a56d3d\
   投稿された質問および回答を一覧で確認可能。
 
 ---
