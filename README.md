@@ -47,6 +47,7 @@ Ruby on Railsで開発中の質問・回答アプリです。ユーザーは**�
 ## 実装した機能についての画像やGIFおよびその説明
 
 - **ユーザー登録・ログイン機能**
+
   https://gyazo.com/3c9078bbda8308fc4c6e6399a22994eb
   
   https://gyazo.com/8d055e23ff3742b480bab98a45d04660
