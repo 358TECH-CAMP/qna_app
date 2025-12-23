@@ -2,13 +2,19 @@
 
 <%= form_with model: @question, local: true do |f| %>
   <div>
-    <%= f.label :title %><br>
+    <%= f.label :title, "タイトル" %><br>
     <%= f.text_field :title, required: true %>
   </div>
 
   <div>
-    <%= f.label :content %><br>
+    <%= f.label :content, "内容" %><br>
     <%= f.text_area :content, required: true %>
+  </div>
+
+  <div>
+    <!-- 公開/非公開 -->
+    <%= f.check_box :public, {}, false, true %>
+    <%= f.label :public, "非公開にする（チェックを入れると講師のみが見れます。未チェックの場合は全体公開になります）" %>
   </div>
 
   <div>

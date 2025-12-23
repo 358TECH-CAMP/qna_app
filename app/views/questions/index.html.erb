@@ -1,19 +1,73 @@
 <h1>質問一覧</h1>
 
+<%= form_with url: questions_path, method: :get, local: true do %>
+  <div>
+    <label>ユーザーで絞り込み</label>
+    <%= select_tag :user_id,
+        options_from_collection_for_select(@users, :id, :handle_name, params[:user_id]),
+        include_blank: "全員" %>
+  </div>
+
+  <div>
+    <%= check_box_tag :unresolved_only, "1", params[:unresolved_only] == "1" %>
+    <%= label_tag :unresolved_only, "未解決のみ表示" %>
+  </div>
+
+  <div>
+    <%= check_box_tag :unanswered_only, "1", params[:unanswered_only] == "1" %>
+    <%= label_tag :unanswered_only, "未回答のみ表示" %>
+  </div>
+
+  <%= submit_tag "絞り込み" %>
+<% end %>
+
+<hr>
+
 <% if @questions.empty? %>
   <p>まだ質問はありません。</p>
 <% else %>
   <ul>
-    <% @questions.each do |q| %>
-      <li>
-        <%= link_to q.title, question_path(q) %> 
-        <% if q.user == current_user %>
-          | <%= link_to "編集", edit_question_path(q) %>
-          | <%= link_to "削除", question_path(q), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+    <% @questions.each do |question| %>
+      <li style="margin-bottom: 10px;">
+
+        <!-- 解決状態 -->
+        <% if question.resolved? %>
+          <span style="color: green;">【解決済み】</span>
+        <% else %>
+          <span style="color: orange;">【未解決】</span>
         <% end %>
+
+        <!-- 回答済み表示 -->
+        <% if question.answers.exists? %>
+          <span style="color: blue;">【回答済み】</span>
+        <% else %>
+          <span style="color: gray;">【未回答】</span>
+        <% end %>
+
+        <!-- 公開 / 非公開 -->
+        <% if question.public? || current_user.teacher? || question.user == current_user %>
+          <% unless question.public? %>
+            <span>🔒</span>
+          <% end %>
+          <%= link_to question.title, question_path(question) %>
+        <% else %>
+          <span style="color: #999;">🔒 非公開</span>
+        <% end %>
+
+        （<%= question.created_at.strftime("%Y/%m/%d %H:%M") %>）
+
+        <!-- 編集・削除（投稿者のみ） -->
+        <% if question.user == current_user %>
+          | <%= link_to "編集", edit_question_path(question) %>
+          | <%= link_to "削除",
+                question_path(question),
+                data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+        <% end %>
+
       </li>
     <% end %>
   </ul>
 <% end %>
 
-<%= link_to "新規質問", new_question_path, class: "button" %>
+<hr>
+<%= link_to "新規質問", new_question_path %>
