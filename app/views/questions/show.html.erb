@@ -1,11 +1,52 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.content %></p>
 <p>作成者: <%= @question.user.handle_name %></p>
+<p>作成日: <%= @question.created_at.strftime("%Y/%m/%d %H:%M") %></p>
 
-<% if @question.user == current_user %>
-  <%= link_to "編集", edit_question_path(@question) %> |
-  <%= link_to "削除", question_path(@question), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+<!-- 解決済み：操作（作成者 or 講師のみ） -->
+<% if current_user.teacher? || @question.user == current_user %>
+  <%= form_with model: @question,
+                url: resolve_question_path(@question),
+                method: :patch,
+                local: true do |f| %>
+    <div>
+      <%= f.check_box :resolved %>
+      <%= f.label :resolved,
+                  "解決済みにする（チェックを入れると解決済みになります）" %>
+    </div>
+    
+    
+  <%= f.submit "更新", class: "button" %>
+ <% end %>
 <% end %>
+
+<!-- 解決状態表示（全ユーザー） -->
+<p>
+  状態：
+  <span style="color: <%= @question.resolved? ? 'green' : 'orange' %>;">
+    [<%= @question.resolved? ? "解決済み" : "未解決" %>]
+  </span>
+</p>
+
+<!-- 右上リンク -->
+<div class="top-links">
+  <% if @question.user == current_user %>
+    <div>
+      <%= link_to "編集", edit_question_path(@question), class: "button-link" %> |
+      <%= link_to "削除",
+                  question_path(@question),
+                  data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                  class: "button-link" %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= link_to '新規質問作成', new_question_path, class: "button-link" %> |
+    <%= link_to '質問一覧', questions_path, class: "button-link" %>
+  </div>
+</div>
+
+<hr>
 
 <h2>回答一覧</h2>
 <% if @question.answers.empty? %>
@@ -15,9 +56,12 @@
     <% @question.answers.each do |a| %>
       <li>
         <%= a.content %> - <%= a.user.handle_name %>
+        (<%= a.created_at.strftime("%Y/%m/%d %H:%M") %>)
         <% if a.user == current_user %>
           | <%= link_to "編集", edit_question_answer_path(@question, a) %>
-          | <%= link_to "削除", question_answer_path(@question, a), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+          | <%= link_to "削除",
+                        question_answer_path(@question, a),
+                        data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
         <% end %>
       </li>
     <% end %>

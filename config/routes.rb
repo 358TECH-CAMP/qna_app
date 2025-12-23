@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   # 質問と回答
   resources :questions do
+    member do
+      patch :resolve   # 解決用
+    end
+
     resources :answers, only: [:create, :edit, :update, :destroy]
   end
 end
