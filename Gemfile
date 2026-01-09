@@ -70,5 +70,6 @@ gem "bcrypt", "~> 3.1"
 
 group :production do
   gem 'pg'
+  gem 'unicorn', '6.1.0'
 end
 
