@@ -1,0 +1,59 @@
+<h1 class="title-bar">全体の講師スケジュール一覧</h1>
+
+<a href="<%= new_teacher_path %>" class="top-right-btn">講師登録</a>
+
+<div class="select-teacher-wrapper">
+  <label for="teacherSelect">講師選択</label>
+  <select id="teacherSelect">
+    <option value="">全講師表示</option>
+    <% @teachers.each do |t| %>
+      <option value="<%= t.id %>"><%= t.name %></option>
+    <% end %>
+  </select>
+</div>
+
+<div class="schedule-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>時間</th>
+        <th>講師名</th>
+      </tr>
+    </thead>
+    <tbody id="scheduleList">
+      <% @schedules.each do |s| %>
+        <tr>
+          <td><%= s.date.strftime("%Y/%m/%d") %></td>
+          <td><%= s.time.strftime("%H:%M") %>〜<%= (s.time + 30.minutes).strftime("%H:%M") %></td>
+          <td>
+            <span class="tooltip"><%= s.teacher.name %>
+              <span class="tooltiptext">
+                <strong><%= s.teacher.name %></strong><br>
+                <%= s.teacher.field %><br>
+                <%= s.teacher.bio %>
+              </span>
+            </span>
+            <% if s.teacher == current_user.teacher %>
+              <%= link_to "編集", teacher_schedules_path(s.teacher), class: "edit-link" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const teacherSelect = document.getElementById("teacherSelect");
+  teacherSelect.addEventListener("change", function(){
+    const teacherId = this.value;
+    if(teacherId){
+      location.href = "/teachers/" + teacherId + "/schedules";
+    } else {
+      location.href = "/";
+    }
+  });
+});
+</script>

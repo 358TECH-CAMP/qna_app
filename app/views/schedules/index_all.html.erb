@@ -1,0 +1,47 @@
+<h1>全講師スケジュール一覧</h1>
+
+<select id="teacherSelect">
+  <option value="">全講師表示</option>
+  <% Teacher.all.each do |t| %>
+    <option value="<%= t.name %>"><%= t.name %></option>
+  <% end %>
+</select>
+
+<div class="schedule-wrapper">
+  <table border="1">
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>時間</th>
+        <th>講師名</th>
+      </tr>
+    </thead>
+    <tbody id="scheduleList">
+      <% @schedules.each do |s| %>
+        <tr>
+          <td><%= s.date %></td>
+          <td><%= s.time.strftime("%H:%M") %></td>
+          <td>
+            <%= s.teacher.name %>
+            <% if current_user&.teacher? && current_user.handle_name == s.teacher.name %>
+              <%= link_to "編集", teacher_schedules_path(s.teacher), style: "color:#0ea35a;margin-left:4px;" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+const teacherSelect = document.getElementById("teacherSelect");
+const scheduleList = document.getElementById("scheduleList");
+
+teacherSelect.addEventListener("change", ()=>{
+  const value = teacherSelect.value;
+  scheduleList.querySelectorAll("tr").forEach(tr=>{
+    if(value && !tr.cells[2].textContent.includes(value)) tr.style.display="none";
+    else tr.style.display="";
+  });
+});
+</script>

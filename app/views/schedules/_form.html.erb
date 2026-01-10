@@ -1,0 +1,15 @@
+<%= form_with model: [@teacher, @schedule], local: true do |f| %>
+  <div>
+    <label>日付</label><br>
+    <%= f.date_field :date, required: true %>
+  </div>
+
+  <div>
+    <label>時間</label><br>
+    <%= f.time_field :time, required: true %>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <%= f.submit %>
+  </div>
+<% end %>

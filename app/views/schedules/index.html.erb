@@ -1,0 +1,29 @@
+<div class="title-bar">講師スケジュール（<%= @teacher.name %>）</div>
+
+<div class="schedule-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th class="time-cell">時間</th>
+        <% ["12/31","1/1","1/2","1/3"].each do |d| %>
+          <th><%= d %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% (0..23).each do |h| %>
+        <% [0,30].each do |m| %>
+          <tr>
+            <td class="time-cell"><%= "%02d:%02d" % [h,m] %></td>
+            <% ["12/31","1/1","1/2","1/3"].each do |d| %>
+              <% schedule = @schedules.find { |s| s.date == d && s.time == "%02d:%02d" % [h,m] } %>
+              <td class="cell">
+                <% if schedule && @current_teacher %>◯<% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,16 @@
+<div class="profile-card">
+  <h2>講師プロフィール登録</h2>
+
+  <%= form_with(model: @teacher, local: true, html: {id: "registerForm"}) do |f| %>
+    <label>氏名</label>
+    <%= f.text_field :name, placeholder: "例：山田 太郎", required: true %>
+
+    <label>専門分野</label>
+    <%= f.text_field :field, placeholder: "例：Python / Web開発", required: true %>
+
+    <label>自己紹介</label>
+    <%= f.text_area :bio, placeholder: "例：フロントエンジニア歴５年...", required: true %>
+
+    <%= f.submit "登録", class: "submit-btn" %>
+  <% end %>
+</div>
