@@ -3,6 +3,13 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Basic認証
+  def basic_auth
+    authenticate_or_request_with_http_basic do |username, password|
+      username == ENV["BASIC_AUTH_USER"] && password == ENV["BASIC_AUTH_PASSWORD"]  # 環境変数を読み込む記述に変更
+    end
+  end
+  
   # ログインしているユーザーを取得
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
