@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
-  before_action :basic_auth, if: -> { Rails.env.production? }  # 本番環境のみ
+  before_action :basic_auth
 
   private
 
