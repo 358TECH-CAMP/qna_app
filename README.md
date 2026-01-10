@@ -17,9 +17,9 @@ Ruby on Railsで開発中の質問・回答アプリです。ユーザーは**�
      ID：admin
      PASS：2222
   
--テストハンドルネーム
+- テストハンドルネーム
      講師用：test
-     受講生：student
+     受講生用：student
 
 ---
 ## 利用方法
